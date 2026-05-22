@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Watt — AI Efficiency Leaderboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-page: oklch(0.12 0.006 70);
+    --bg: oklch(0.165 0.008 70);
+    --bg-elev: oklch(0.215 0.010 70);
+    --bg-elev-2: oklch(0.26 0.012 70);
+    --bg-deep: oklch(0.105 0.005 70);
+    --line: oklch(0.32 0.010 70);
+    --line-soft: oklch(0.26 0.008 70);
+    --text: oklch(0.97 0.005 80);
+    --text-dim: oklch(0.72 0.008 70);
+    --text-faint: oklch(0.50 0.008 70);
+    --accent: oklch(0.86 0.17 128);
+    --accent-deep: oklch(0.62 0.16 130);
+    --gold: oklch(0.83 0.135 88);
+    --silver: oklch(0.82 0.010 250);
+    --bronze: oklch(0.70 0.115 55);
+    --red: oklch(0.70 0.16 25);
+    --blue: oklch(0.72 0.13 240);
+  }
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: var(--bg-page);
+    font-family: 'Geist', -apple-system, system-ui, sans-serif;
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+  #root {
+    width: 100vw; height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    background:
+      radial-gradient(ellipse at 30% 10%, oklch(0.22 0.015 90) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 90%, oklch(0.18 0.012 140) 0%, transparent 55%),
+      var(--bg-page);
+  }
+  ::-webkit-scrollbar { width: 0; height: 0; }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+  button { font-family: inherit; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script>
+  // Tweak defaults persisted to disk by the host.
+  window.TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "frame": "phone"
+  }/*EDITMODE-END*/;
+
+  // Data source URL — swap this to any endpoint (Vercel API route, CDN, etc.)
+  window.DATA_URL = /*DATA-URL*/'/api/data'/*DATA-URL-END*/;
+</script>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="ios-frame.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx?v=1"></script>
+<script type="text/babel" src="components.jsx?v=5"></script>
+<script type="text/babel" src="app.jsx?v=12"></script>
+</body>
+</html>
