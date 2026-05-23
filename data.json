@@ -1,98 +1,97 @@
 {
   "user": {
-    "name": "Adem",
-    "handle": "maya.l",
-    "initials": "AT",
-    "tier": "silver",
-    "efficiencyToday": 80,
-    "efficiencyLifetime": 82,
-    "totalTokensToday": 100000,
+    "name": "Jason",
+    "handle": "jason",
+    "initials": "J",
+    "tier": "gold",
+    "efficiencyToday": 85,
+    "efficiencyLifetime": 84,
+    "totalTokensToday": 320000000,
     "rankPct": 5,
-    "reserveLeft": 220000,
-    "reserveTotal": 320000,
+    "reserveLeft": 220000000,
+    "reserveTotal": 420000000,
     "agentsConnected": true
   },
   "projects": [
     {
       "id": "p1",
-      "title": "Creating physics-informed ML models for occupant analysis",
-      "sub": "Shipping site · 4 day sprint",
-      "spt": 41,
-      "sptDelta": 3,
-      "total": 46000,
+      "title": "Competition strategy and submissions",
+      "sub": "Competition - active sprint",
+      "spt": 84,
+      "sptDelta": 6,
+      "total": 320000000,
       "hourly": [
-        1,
-        1,
-        3,
-        2,
-        4,
-        7,
-        9,
         12,
-        8,
-        5,
-        3,
-        2
+        18,
+        24,
+        34,
+        42,
+        56,
+        68,
+        64,
+        50,
+        38,
+        28,
+        18
       ],
       "accolades": [
-        "compact",
-        "flow",
-        "spark"
+        "surge",
+        "precision",
+        "flow"
       ],
       "accent": "oklch(0.86 0.17 128)"
     },
     {
       "id": "p2",
-      "title": "Refactoring auth module",
-      "sub": "Server · ongoing",
-      "spt": 58,
-      "sptDelta": 9,
-      "total": 31400,
+      "title": "Competition analysis pipeline",
+      "sub": "Benchmarking - ongoing",
+      "spt": 81,
+      "sptDelta": 4,
+      "total": 184000000,
       "hourly": [
-        0,
-        0,
-        1,
-        1,
-        2,
-        4,
-        6,
         8,
-        11,
-        7,
-        3,
-        1
+        12,
+        18,
+        26,
+        34,
+        42,
+        49,
+        44,
+        35,
+        27,
+        18,
+        12
       ],
       "accolades": [
-        "precision",
-        "frugal",
-        "surge",
-        "spark"
+        "compact",
+        "precision"
       ],
       "accent": "oklch(0.78 0.13 240)"
     },
     {
       "id": "p3",
-      "title": "Onboarding email sequence",
-      "sub": "Copy · drafting",
-      "spt": 32,
-      "sptDelta": -4,
-      "total": 12800,
+      "title": "Competition presentation system",
+      "sub": "Final polish",
+      "spt": 78,
+      "sptDelta": 2,
+      "total": 96000000,
       "hourly": [
-        0,
-        0,
-        0,
-        0,
-        1,
-        2,
-        2,
-        3,
-        2,
-        1,
-        0,
-        0
+        5,
+        8,
+        12,
+        16,
+        22,
+        28,
+        30,
+        27,
+        20,
+        15,
+        10,
+        6
       ],
       "accolades": [
-        "flow"
+        "flow",
+        "spark"
       ],
       "accent": "oklch(0.82 0.14 60)"
     }
@@ -100,90 +99,95 @@
   "contemporaries": [
     {
       "id": "c1",
-      "name": "Vishnu Murali, EIT",
-      "initials": "V.M.",
-      "tokens": 50000,
-      "spt": 59,
-      "project": "Precast carbon-negative girder optimization model",
-      "tier": "gold",
-      "accolades": [
-        "compact",
-        "flow"
-      ]
-    },
-    {
-      "id": "c2",
-      "name": "Khosiyat Oripova",
-      "initials": "K.O.",
-      "tokens": 38400,
-      "spt": 47,
-      "project": "Alumni network dashboard API integration",
-      "tier": "silver",
-      "accolades": [
-        "velocity"
-      ]
-    },
-    {
-      "id": "c3",
-      "name": "Weijia Cai",
-      "initials": "W.C.",
-      "tokens": 72100,
-      "spt": 62,
-      "project": "Nonlinear structural dynamics simulator",
-      "tier": "gold",
-      "accolades": [
-        "precision",
-        "frugal",
-        "surge"
-      ]
-    },
-    {
-      "id": "c4",
-      "name": "Alexandre B.",
-      "initials": "A.B.",
-      "tokens": 25600,
-      "spt": 51,
-      "project": "Finite element analysis mesh processing script",
-      "tier": "silver",
+      "name": "Eunice Jung",
+      "initials": "E.J.",
+      "tokens": 42000000,
+      "spt": 72,
+      "project": "a sustainability impact system",
+      "tier": "platinum",
       "accolades": [
         "flow",
-        "spark"
-      ]
-    },
-    {
-      "id": "c5",
-      "name": "Aadhityaa Mohanavelu",
-      "initials": "A.M.",
-      "tokens": 44200,
-      "spt": 55,
-      "project": "Geotechnical sensor data ingestion pipeline",
-      "tier": "silver",
-      "accolades": [
+        "precision",
         "compact"
       ]
     },
     {
-      "id": "c6",
-      "name": "Joonsun Hwang",
-      "initials": "J.H.",
-      "tokens": 18900,
-      "spt": 64,
-      "project": "Stochastic bridge vibration analyzer",
+      "id": "c2",
+      "name": "Matthew Hayes",
+      "initials": "M.H.",
+      "tokens": 38000000,
+      "spt": 70,
+      "project": "a competition strategy system",
+      "tier": "platinum",
+      "accolades": [
+        "surge",
+        "precision",
+        "flow"
+      ]
+    },
+    {
+      "id": "c3",
+      "name": "Allison John",
+      "initials": "A.J.",
+      "tokens": 34000000,
+      "spt": 67,
+      "project": "a CS project architecture",
       "tier": "gold",
       "accolades": [
+        "compact",
+        "spark",
+        "precision"
+      ]
+    },
+    {
+      "id": "c4",
+      "name": "Josephine Zhao",
+      "initials": "J.Z.",
+      "tokens": 118000000,
+      "spt": 64,
+      "project": "an aerospace analysis model",
+      "tier": "gold",
+      "accolades": [
+        "flow",
+        "precision"
+      ]
+    },
+    {
+      "id": "c5",
+      "name": "Justin Ha",
+      "initials": "J.H.",
+      "tokens": 98000000,
+      "spt": 60,
+      "project": "a competition build plan",
+      "tier": "gold",
+      "accolades": [
+        "surge",
+        "flow"
+      ]
+    },
+    {
+      "id": "c6",
+      "name": "Douglas Kwok",
+      "initials": "D.K.",
+      "tokens": 76000000,
+      "spt": 56,
+      "project": "a competition execution tracker",
+      "tier": "silver",
+      "accolades": [
         "precision",
-        "frugal"
+        "compact"
       ]
     },
     {
       "id": "c7",
-      "name": "Yuanhao Zhou",
-      "initials": "Y.Z.",
-      "tokens": 41300,
-      "spt": 53,
-      "project": "Robotic infrastructure inspection vision model",
+      "name": "Daniel Jiang",
+      "initials": "D.J.",
+      "tokens": 62000000,
+      "spt": 52,
+      "project": "a data workflow dashboard",
       "tier": "silver",
       "accolades": [
+        "spark",
         "flow"
       ]
     }
@@ -191,151 +195,131 @@
   "friends": [
     {
       "id": "f1",
-      "name": "Vishnu Murali, EIT",
-      "initials": "V.M.",
-      "tier": "gold",
-      "spt": 59,
-      "tokensToday": 79000,
+      "name": "Eunice Jung",
+      "initials": "E.J.",
+      "tier": "platinum",
+      "efficiency": 96,
+      "spt": 72,
+      "tokensToday": 42000000,
+      "streakDays": 24,
       "accolades": [
-        "compact",
-        "flow"
+        "flow",
+        "precision",
+        "compact"
       ],
-      "efficiency": 88,
-      "streakDays": 12,
       "featured": {
-        "verb": "Optimized",
-        "what": "a precast girder carbon model",
-        "tokens": 31000
+        "verb": "Modeled",
+        "what": "a sustainability impact system",
+        "tokens": 42000000
       },
       "projects": [
         {
-          "title": "Precast girder carbon model",
-          "spt": 63,
-          "total": 31000,
+          "title": "Sustainability impact model",
+          "spt": 72,
+          "total": 42000000,
           "hourly": [
-            0,
-            1,
-            2,
-            3,
-            5,
-            7,
-            6,
             4,
-            2,
-            1,
-            0,
-            0
+            8,
+            14,
+            22,
+            30,
+            38,
+            46,
+            44,
+            36,
+            28,
+            18,
+            10
           ],
           "accolades": [
-            "compact",
-            "flow"
-          ]
-        },
-        {
-          "title": "Low-carbon mix design tool",
-          "spt": 58,
-          "total": 29400,
-          "hourly": [
-            1,
-            1,
-            2,
-            3,
-            4,
-            5,
-            4,
-            3,
-            2,
-            1,
-            1,
-            0
-          ],
-          "accolades": [
+            "flow",
             "precision"
           ]
         },
         {
-          "title": "Construction systems dashboard",
-          "spt": 54,
-          "total": 18600,
+          "title": "Low-carbon planning dashboard",
+          "spt": 69,
+          "total": 21000000,
           "hourly": [
-            0,
-            0,
-            1,
-            2,
-            3,
             4,
-            3,
-            2,
-            1,
-            0,
-            0,
-            0
+            8,
+            14,
+            22,
+            30,
+            38,
+            46,
+            44,
+            36,
+            28,
+            18,
+            10
           ],
           "accolades": [
-            "spark"
+            "compact"
           ]
         }
       ]
     },
     {
       "id": "f2",
-      "name": "Joonsun Hwang",
-      "initials": "J.H.",
-      "tier": "gold",
-      "spt": 64,
-      "tokensToday": 62000,
+      "name": "Matthew Hayes",
+      "initials": "M.H.",
+      "tier": "platinum",
+      "efficiency": 94,
+      "spt": 70,
+      "tokensToday": 38000000,
+      "streakDays": 19,
       "accolades": [
+        "surge",
         "precision",
-        "frugal"
+        "flow"
       ],
-      "efficiency": 90,
-      "streakDays": 21,
       "featured": {
-        "verb": "Analyzed",
-        "what": "stochastic bridge vibration data",
-        "tokens": 33000
+        "verb": "Built",
+        "what": "a competition strategy system",
+        "tokens": 38000000
       },
       "projects": [
         {
-          "title": "Stochastic bridge vibration analyzer",
-          "spt": 68,
-          "total": 33000,
+          "title": "Competition strategy system",
+          "spt": 70,
+          "total": 38000000,
           "hourly": [
-            0,
-            1,
-            2,
             4,
-            6,
-            7,
-            5,
-            3,
-            2,
-            1,
-            0,
-            0
+            8,
+            14,
+            22,
+            30,
+            38,
+            46,
+            44,
+            36,
+            28,
+            18,
+            10
           ],
           "accolades": [
-            "precision",
-            "frugal"
+            "surge",
+            "precision"
           ]
         },
         {
-          "title": "Structural health monitoring tool",
-          "spt": 61,
-          "total": 21400,
+          "title": "Competition scoring simulator",
+          "spt": 66,
+          "total": 19000000,
           "hourly": [
-            0,
-            0,
-            1,
-            2,
-            3,
             4,
-            3,
-            2,
-            1,
-            1,
-            0,
-            0
+            8,
+            14,
+            22,
+            30,
+            38,
+            46,
+            44,
+            36,
+            28,
+            18,
+            10
           ],
           "accolades": [
             "flow"
@@ -345,278 +329,196 @@
     },
     {
       "id": "f3",
-      "name": "Weijia Cai",
-      "initials": "W.C.",
+      "name": "Allison John",
+      "initials": "A.J.",
       "tier": "gold",
-      "spt": 62,
-      "tokensToday": 78000,
+      "efficiency": 91,
+      "spt": 67,
+      "tokensToday": 34000000,
+      "streakDays": 16,
       "accolades": [
-        "precision",
-        "frugal",
-        "surge"
+        "compact",
+        "spark",
+        "precision"
       ],
-      "efficiency": 85,
-      "streakDays": 18,
       "featured": {
-        "verb": "Simulated",
-        "what": "a nonlinear structural dynamics model",
-        "tokens": 38000
+        "verb": "Shipped",
+        "what": "a CS project architecture",
+        "tokens": 34000000
       },
       "projects": [
         {
-          "title": "Nonlinear dynamics simulator",
+          "title": "CS project architecture",
           "spt": 67,
-          "total": 38000,
+          "total": 34000000,
           "hourly": [
-            1,
-            2,
-            3,
             4,
-            6,
             8,
-            7,
-            5,
-            3,
-            2,
-            1,
-            0
+            14,
+            22,
+            30,
+            38,
+            46,
+            44,
+            36,
+            28,
+            18,
+            10
           ],
           "accolades": [
-            "precision",
-            "surge"
+            "compact",
+            "spark"
           ]
         },
         {
-          "title": "Seismic response pipeline",
-          "spt": 59,
-          "total": 24100,
+          "title": "Distributed systems prototype",
+          "spt": 63,
+          "total": 17000000,
           "hourly": [
-            0,
-            1,
-            1,
-            2,
-            3,
             4,
-            4,
-            3,
-            2,
-            1,
-            0,
-            0
+            8,
+            14,
+            22,
+            30,
+            38,
+            46,
+            44,
+            36,
+            28,
+            18,
+            10
           ],
           "accolades": [
-            "frugal"
-          ]
-        },
-        {
-          "title": "Material nonlinearity model",
-          "spt": 55,
-          "total": 16000,
-          "hourly": [
-            0,
-            0,
-            1,
-            1,
-            2,
-            3,
-            3,
-            2,
-            1,
-            0,
-            0,
-            0
-          ],
-          "accolades": [
-            "compact"
+            "precision"
           ]
         }
       ]
     },
     {
       "id": "f4",
-      "name": "Aadhityaa Mohanavelu",
-      "initials": "A.M.",
-      "tier": "silver",
-      "spt": 55,
-      "tokensToday": 52000,
+      "name": "Josephine Zhao",
+      "initials": "J.Z.",
+      "tier": "gold",
+      "efficiency": 88,
+      "spt": 64,
+      "tokensToday": 118000000,
+      "streakDays": 14,
       "accolades": [
-        "compact"
+        "flow",
+        "precision"
       ],
-      "efficiency": 79,
-      "streakDays": 10,
       "featured": {
-        "verb": "Built",
-        "what": "a geotechnical sensor pipeline",
-        "tokens": 28000
+        "verb": "Designed",
+        "what": "an aerospace analysis model",
+        "tokens": 118000000
       },
       "projects": [
         {
-          "title": "Geotechnical sensor pipeline",
-          "spt": 58,
-          "total": 28000,
+          "title": "Aerospace analysis model",
+          "spt": 64,
+          "total": 118000000,
           "hourly": [
-            0,
-            1,
-            2,
-            3,
             4,
-            5,
-            4,
-            3,
-            2,
-            1,
-            0,
-            0
+            8,
+            14,
+            22,
+            30,
+            38,
+            46,
+            44,
+            36,
+            28,
+            18,
+            10
           ],
           "accolades": [
-            "compact"
+            "flow",
+            "precision"
           ]
         },
         {
-          "title": "Quad Fellow research dashboard",
-          "spt": 52,
-          "total": 24000,
+          "title": "Flight dynamics dashboard",
+          "spt": 61,
+          "total": 57000000,
           "hourly": [
-            1,
-            1,
-            2,
-            2,
-            3,
             4,
-            3,
-            2,
-            1,
-            1,
-            0,
-            0
+            8,
+            14,
+            22,
+            30,
+            38,
+            46,
+            44,
+            36,
+            28,
+            18,
+            10
           ],
           "accolades": [
-            "flow"
+            "spark"
           ]
         }
       ]
     },
     {
       "id": "f5",
-      "name": "Khosiyat Oripova",
-      "initials": "K.O.",
-      "tier": "silver",
-      "spt": 47,
-      "tokensToday": 45000,
+      "name": "Justin Ha",
+      "initials": "J.H.",
+      "tier": "gold",
+      "efficiency": 82,
+      "spt": 60,
+      "tokensToday": 98000000,
+      "streakDays": 11,
       "accolades": [
-        "velocity"
-      ],
-      "efficiency": 72,
-      "streakDays": 5,
-      "featured": {
-        "verb": "Built",
-        "what": "an alumni network dashboard",
-        "tokens": 24000
-      },
-      "projects": [
-        {
-          "title": "Alumni network dashboard",
-          "spt": 50,
-          "total": 24000,
-          "hourly": [
-            0,
-            0,
-            1,
-            2,
-            3,
-            4,
-            4,
-            3,
-            2,
-            1,
-            0,
-            0
-          ],
-          "accolades": [
-            "velocity"
-          ]
-        },
-        {
-          "title": "Stanford API integration",
-          "spt": 44,
-          "total": 21000,
-          "hourly": [
-            1,
-            1,
-            2,
-            2,
-            3,
-            3,
-            2,
-            2,
-            1,
-            0,
-            0,
-            0
-          ],
-          "accolades": [
-            "spark"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "f6",
-      "name": "Yuanhao Zhou",
-      "initials": "Y.Z.",
-      "tier": "silver",
-      "spt": 53,
-      "tokensToday": 48000,
-      "accolades": [
+        "surge",
         "flow"
       ],
-      "efficiency": 76,
-      "streakDays": 8,
       "featured": {
-        "verb": "Trained",
-        "what": "a robotic inspection vision model",
-        "tokens": 26000
+        "verb": "Advanced",
+        "what": "a competition build plan",
+        "tokens": 98000000
       },
       "projects": [
         {
-          "title": "Robotic inspection vision model",
-          "spt": 56,
-          "total": 26000,
+          "title": "Competition build plan",
+          "spt": 60,
+          "total": 98000000,
           "hourly": [
-            0,
-            1,
-            2,
-            3,
             4,
-            5,
-            4,
-            3,
-            2,
-            1,
-            0,
-            0
+            8,
+            14,
+            22,
+            30,
+            38,
+            46,
+            44,
+            36,
+            28,
+            18,
+            10
           ],
           "accolades": [
+            "surge",
             "flow"
           ]
         },
         {
-          "title": "RAILab infrastructure scanner",
-          "spt": 50,
-          "total": 22000,
+          "title": "Judging rubric optimizer",
+          "spt": 57,
+          "total": 46000000,
           "hourly": [
-            0,
-            0,
-            1,
-            2,
-            3,
             4,
-            3,
-            2,
-            2,
-            1,
-            0,
-            0
+            8,
+            14,
+            22,
+            30,
+            38,
+            46,
+            44,
+            36,
+            28,
+            18,
+            10
           ],
           "accolades": [
             "compact"
@@ -625,67 +527,133 @@
       ]
     },
     {
-      "id": "f7",
-      "name": "Alexandre B.",
-      "initials": "A.B.",
+      "id": "f6",
+      "name": "Douglas Kwok",
+      "initials": "D.K.",
       "tier": "silver",
-      "spt": 51,
-      "tokensToday": 35000,
+      "efficiency": 78,
+      "spt": 56,
+      "tokensToday": 76000000,
+      "streakDays": 8,
       "accolades": [
-        "flow",
-        "spark"
+        "precision",
+        "compact"
       ],
-      "efficiency": 74,
-      "streakDays": 7,
       "featured": {
-        "verb": "Wrote",
-        "what": "an FEM mesh processing script",
-        "tokens": 19000
+        "verb": "Refined",
+        "what": "a competition execution tracker",
+        "tokens": 76000000
       },
       "projects": [
         {
-          "title": "FEM mesh processing script",
-          "spt": 54,
-          "total": 19000,
+          "title": "Competition execution tracker",
+          "spt": 56,
+          "total": 76000000,
           "hourly": [
-            0,
-            0,
-            1,
-            2,
-            3,
             4,
-            3,
-            3,
-            2,
-            1,
-            0,
-            0
+            8,
+            14,
+            22,
+            30,
+            38,
+            46,
+            44,
+            36,
+            28,
+            18,
+            10
           ],
           "accolades": [
-            "flow",
-            "spark"
+            "precision",
+            "compact"
           ]
         },
         {
-          "title": "Structural optimization tool",
-          "spt": 48,
-          "total": 16000,
+          "title": "Milestone risk model",
+          "spt": 53,
+          "total": 38000000,
           "hourly": [
-            0,
-            1,
-            1,
-            2,
-            2,
-            3,
-            3,
-            2,
-            1,
-            0,
-            0,
-            0
+            4,
+            8,
+            14,
+            22,
+            30,
+            38,
+            46,
+            44,
+            36,
+            28,
+            18,
+            10
           ],
           "accolades": [
-            "precision"
+            "flow"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f7",
+      "name": "Daniel Jiang",
+      "initials": "D.J.",
+      "tier": "silver",
+      "efficiency": 74,
+      "spt": 52,
+      "tokensToday": 62000000,
+      "streakDays": 6,
+      "accolades": [
+        "spark",
+        "flow"
+      ],
+      "featured": {
+        "verb": "Built",
+        "what": "a data workflow dashboard",
+        "tokens": 62000000
+      },
+      "projects": [
+        {
+          "title": "Data workflow dashboard",
+          "spt": 52,
+          "total": 62000000,
+          "hourly": [
+            4,
+            8,
+            14,
+            22,
+            30,
+            38,
+            46,
+            44,
+            36,
+            28,
+            18,
+            10
+          ],
+          "accolades": [
+            "spark",
+            "flow"
+          ]
+        },
+        {
+          "title": "Research automation queue",
+          "spt": 49,
+          "total": 31000000,
+          "hourly": [
+            4,
+            8,
+            14,
+            22,
+            30,
+            38,
+            46,
+            44,
+            36,
+            28,
+            18,
+            10
+          ],
+          "accolades": [
+            "compact"
           ]
         }
       ]
@@ -695,33 +663,33 @@
     {
       "id": "t1",
       "icon": "compact",
-      "title": "Batch your auth questions",
-      "body": "Your auth module solves jump 22% when you bundle questions instead of one-at-a-time.",
+      "title": "Batch competition analysis",
+      "body": "Grouping benchmark questions before each pass keeps the competition workflow moving with fewer resets.",
       "metric": "+22%",
       "tone": "good"
     },
     {
       "id": "t2",
       "icon": "frugal",
-      "title": "Drop verbose context after first turn",
-      "body": "You re-paste the same brief in 4 / 5 sessions. A persistent project memory would save ~8K tokens / day.",
-      "metric": "~8K/day",
+      "title": "Trim repeated context",
+      "body": "You reuse the same competition brief across sessions. A persistent project memory would save millions of tokens at this scale.",
+      "metric": "~6M/day",
       "tone": "warn"
     },
     {
       "id": "t3",
       "icon": "flow",
-      "title": "Your peak is 12–2pm",
-      "body": "You ship 1.7× more solves in midday windows. Try moving copy work to mornings.",
-      "metric": "1.7×",
+      "title": "Your peak is 12-2pm",
+      "body": "You ship 1.7x more solves in midday windows. Move competition synthesis into that window.",
+      "metric": "1.7x",
       "tone": "good"
     },
     {
       "id": "t4",
       "icon": "precision",
-      "title": "Specify the file before asking",
-      "body": "Naming the file up front reduces clarifying round-trips by 40%.",
-      "metric": "−40%",
+      "title": "Name the target first",
+      "body": "Calling out the file, rubric, or submission section up front reduces clarifying round-trips by 40%.",
+      "metric": "-40%",
       "tone": "good"
     }
   ],
