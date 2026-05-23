@@ -283,6 +283,7 @@ const TIERS = ['bronze', 'silver', 'gold', 'platinum'];
 
 let currentData = null;
 let activeTab = 'leaderboard';
+let rerankTimer = null;
 
 const statusEl = document.getElementById('status');
 const countBadge = document.getElementById('countBadge');
@@ -546,6 +547,15 @@ function collectRows() {
   refreshBadge();
 }
 
+function scheduleRerank() {
+  clearTimeout(rerankTimer);
+  rerankTimer = setTimeout(() => {
+    collectRows();
+    render();
+    syncJsonFromData();
+  }, 300);
+}
+
 function switchTab(tabName) {
   activeTab = tabName;
   tabs.forEach(tab => tab.classList.toggle('active', tab.dataset.tab === tabName));
@@ -558,12 +568,17 @@ leaderboardList.addEventListener('input', event => {
   if (!event.target.closest('.person-row')) return;
   clearStatus();
   collectRows();
+  if (event.target.dataset.field === 'efficiency') scheduleRerank();
 });
 
 leaderboardList.addEventListener('change', event => {
   if (!event.target.closest('.person-row')) return;
   clearStatus();
   collectRows();
+  if (event.target.dataset.field === 'efficiency') {
+    render();
+    syncJsonFromData();
+  }
 });
 
 leaderboardList.addEventListener('click', event => {
