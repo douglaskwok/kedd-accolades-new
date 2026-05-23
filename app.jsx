@@ -1,7 +1,6 @@
 // app.jsx — Watt main app. Mounts the iOS device frame and routes screens.
 
 const { useState, useRef, useEffect, useMemo, createContext, useContext } = React;
-const LOCAL_DATA_KEY = 'watt:data:v1';
 
 // ─── Data context ──────────────────────────────────────────────
 const DataContext = createContext(null);
@@ -14,28 +13,9 @@ function useAppData() {
 
   useEffect(() => {
     const url = window.DATA_URL || './data.json';
-    let localRevision = null;
-
-    function readLocalData() {
-      try {
-        const raw = window.localStorage.getItem(LOCAL_DATA_KEY);
-        if (!raw) return false;
-        const parsed = JSON.parse(raw);
-        const revision = JSON.stringify(parsed);
-        if (revision === localRevision) return true;
-        localRevision = revision;
-        setData(parsed);
-        setError(null);
-        return true;
-      } catch {
-        window.localStorage.removeItem(LOCAL_DATA_KEY);
-        return false;
-      }
-    }
 
     async function poll() {
       try {
-        if (readLocalData()) return;
         const headers = etag.current ? { 'If-None-Match': etag.current } : {};
         const r = await fetch(url, { headers });
         if (r.status === 304) return; // unchanged

@@ -2,6 +2,14 @@ import { put, list, del } from '@vercel/blob';
 
 const BLOB_PREFIX = 'leaderboard-data-';
 
+function blobOptions() {
+  const token = process.env.BLOB_READ_WRITE_TOKEN;
+  if (!token) {
+    throw new Error('Missing BLOB_READ_WRITE_TOKEN. Create/connect a Vercel Blob store for this project and redeploy.');
+  }
+  return { token };
+}
+
 function setCorsHeaders(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, PATCH, OPTIONS');
@@ -30,6 +38,13 @@ export default async function handler(req, res) {
   }
 
   let data = req.body;
+  let options;
+
+  try {
+    options = blobOptions();
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
 
   if (req.method === 'PATCH') {
     // Merge top-level keys into existing data
@@ -45,20 +60,22 @@ export default async function handler(req, res) {
   // Write new blob with unique timestamped name — bypasses CDN cache on the old URL
   try {
     await put(`${BLOB_PREFIX}${Date.now()}.json`, JSON.stringify(data), {
+      ...options,
       access: 'public',
       contentType: 'application/json',
     });
   } catch (error) {
     console.error('Unable to write leaderboard data blob.', error);
-    return res.status(500).json({ error: 'Unable to write data' });
+    const message = error?.message || 'Unable to write data';
+    return res.status(500).json({ error: message });
   }
 
   // Clean up all previous blobs to avoid accumulation
   try {
-    const { blobs } = await list({ prefix: BLOB_PREFIX });
+    const { blobs } = await list({ ...options, prefix: BLOB_PREFIX });
     const sorted = [...blobs].sort((a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt));
     if (sorted.length > 2) {
-      await del(sorted.slice(2).map(b => b.url));
+      await del(sorted.slice(2).map(b => b.url), options);
     }
   } catch (error) {
     console.warn('Saved leaderboard data, but old blob cleanup failed.', error);
