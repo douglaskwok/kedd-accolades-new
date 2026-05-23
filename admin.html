@@ -3,143 +3,305 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Watt — Admin</title>
+<title>Watt - Admin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <style>
   :root {
     --bg-page: oklch(0.12 0.006 70);
     --bg: oklch(0.165 0.008 70);
     --bg-elev: oklch(0.215 0.010 70);
+    --bg-elev-2: oklch(0.26 0.012 70);
     --line: oklch(0.32 0.010 70);
+    --line-soft: oklch(0.26 0.008 70);
     --text: oklch(0.97 0.005 80);
     --text-dim: oklch(0.72 0.008 70);
     --text-faint: oklch(0.50 0.008 70);
     --accent: oklch(0.86 0.17 128);
+    --blue: oklch(0.72 0.13 240);
+    --gold: oklch(0.83 0.135 88);
     --red: oklch(0.70 0.16 25);
   }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
   body {
     background: var(--bg-page);
     color: var(--text);
     font-family: 'Geist', system-ui, sans-serif;
-    min-height: 100vh;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 48px 16px;
     -webkit-font-smoothing: antialiased;
   }
-  .card {
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 32px;
-    width: 100%;
-    max-width: 780px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  button, input, select, textarea { font: inherit; }
+  button {
+    border: 0;
+    border-radius: 8px;
+    padding: 9px 14px;
+    cursor: pointer;
+    transition: opacity 0.15s, background 0.15s, border-color 0.15s;
   }
-  h1 { font-size: 18px; font-weight: 600; letter-spacing: -0.3px; }
-  label { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; display: block; }
-  .row { display: flex; gap: 10px; }
-  input[type="password"] {
-    flex: 1;
-    background: var(--bg-elev);
+  button:disabled { opacity: 0.42; cursor: default; }
+  label { display: block; margin-bottom: 6px; color: var(--text-dim); font-size: 12px; font-weight: 500; }
+  input, select, textarea {
+    width: 100%;
+    min-width: 0;
     border: 1px solid var(--line);
     border-radius: 8px;
+    background: var(--bg-elev);
     color: var(--text);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 14px;
-    padding: 10px 14px;
     outline: none;
-    transition: border-color 0.15s;
   }
-  input[type="password"]:focus { border-color: var(--accent); }
+  input, select { height: 38px; padding: 0 11px; }
+  input[type="number"] { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+  input:focus, select:focus, textarea:focus { border-color: var(--accent); }
   textarea {
-    width: 100%;
-    height: 480px;
-    background: var(--bg-elev);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    color: var(--text);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12.5px;
-    line-height: 1.6;
+    height: min(52vh, 560px);
     padding: 14px;
     resize: vertical;
-    outline: none;
-    transition: border-color 0.15s;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12.5px;
+    line-height: 1.55;
   }
-  textarea:focus { border-color: var(--accent); }
-  textarea.error { border-color: var(--red); }
-  button {
-    font-family: 'Geist', system-ui, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    border: none;
+  .workspace {
+    width: min(1180px, calc(100vw - 32px));
+    margin: 0 auto;
+    padding: 36px 0 48px;
+  }
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 18px;
+  }
+  h1 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+  .count {
+    color: var(--text-faint);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+  }
+  .bar, .tabs, .view {
+    background: var(--bg);
+    border: 1px solid var(--line-soft);
+  }
+  .bar {
+    display: grid;
+    grid-template-columns: minmax(220px, 1fr) auto auto auto;
+    align-items: end;
+    gap: 10px;
     border-radius: 8px;
-    padding: 10px 18px;
-    cursor: pointer;
-    transition: opacity 0.15s;
+    padding: 14px;
+    margin-bottom: 12px;
   }
-  button:disabled { opacity: 0.4; cursor: default; }
-  .btn-primary { background: var(--accent); color: oklch(0.12 0.006 70); }
-  .btn-secondary { background: var(--bg-elev); color: var(--text); border: 1px solid var(--line); }
-  .btn-primary:not(:disabled):hover { opacity: 0.85; }
-  .btn-secondary:not(:disabled):hover { opacity: 0.75; }
-  .status {
-    font-size: 13px;
+  .tabs {
+    display: flex;
+    gap: 6px;
+    border-radius: 8px;
+    padding: 6px;
+    margin-bottom: 12px;
+  }
+  .tab {
+    background: transparent;
+    color: var(--text-dim);
+    border: 1px solid transparent;
+  }
+  .tab.active {
+    background: var(--bg-elev);
+    color: var(--text);
+    border-color: var(--line);
+  }
+  .view {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .view.hidden { display: none; }
+  .leaderboard-head, .person-row {
+    display: grid;
+    grid-template-columns: 44px minmax(220px, 1.2fr) 96px 82px minmax(190px, 1fr) 120px 118px 88px;
+    gap: 10px;
+    align-items: center;
+  }
+  .leaderboard-head {
     padding: 10px 14px;
-    border-radius: 8px;
-    display: none;
+    color: var(--text-faint);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--line-soft);
   }
-  .status.ok  { background: oklch(0.20 0.04 128); color: var(--accent); display: block; }
-  .status.err { background: oklch(0.18 0.04 25);  color: var(--red);    display: block; }
-  .divider { border: none; border-top: 1px solid var(--line); }
-  .actions { display: flex; gap: 10px; align-items: center; }
-  .spacer { flex: 1; }
+  .person-row {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .person-row:last-child { border-bottom: 0; }
+  .rank {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    color: var(--text-faint);
+    font-weight: 700;
+    text-align: right;
+  }
+  .identity-grid {
+    display: grid;
+    grid-template-columns: 1fr 72px;
+    gap: 8px;
+  }
+  .featured-grid {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    gap: 8px;
+  }
+  .accolades {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .accolade {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--text-dim);
+    background: var(--bg-elev);
+    font-size: 11px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .accolade input { position: absolute; opacity: 0; pointer-events: none; }
+  .accolade:has(input:checked) {
+    border-color: color-mix(in oklch, var(--accent) 65%, var(--line));
+    color: var(--accent);
+    background: color-mix(in oklch, var(--accent) 11%, var(--bg-elev));
+  }
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  .json-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 12px 14px;
+    border-top: 1px solid var(--line-soft);
+  }
+  .btn-primary { background: var(--accent); color: oklch(0.12 0.006 70); font-weight: 700; }
+  .btn-secondary { background: var(--bg-elev); color: var(--text); border: 1px solid var(--line); }
+  .btn-danger { background: transparent; color: var(--red); border: 1px solid color-mix(in oklch, var(--red) 45%, var(--line)); }
+  .btn-primary:not(:disabled):hover, .btn-secondary:not(:disabled):hover, .btn-danger:not(:disabled):hover { opacity: 0.82; }
+  .status {
+    display: none;
+    margin: 12px 0;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+  }
+  .status.ok { display: block; color: var(--accent); background: oklch(0.20 0.04 128); }
+  .status.err { display: block; color: var(--red); background: oklch(0.18 0.04 25); }
+  .empty {
+    padding: 40px 18px;
+    text-align: center;
+    color: var(--text-faint);
+    font-size: 13px;
+  }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+  @media (max-width: 980px) {
+    body { background: var(--bg); }
+    .workspace { width: 100%; padding: 18px 12px 32px; }
+    .topbar { align-items: flex-start; }
+    .bar { grid-template-columns: 1fr 1fr; }
+    .secret-field { grid-column: 1 / -1; }
+    .leaderboard-head { display: none; }
+    .person-row {
+      grid-template-columns: 38px 1fr;
+      align-items: start;
+    }
+    .person-row > *:not(.rank):not(.identity-grid) { grid-column: 2; }
+    .identity-grid, .featured-grid { grid-template-columns: 1fr; }
+    .accolades { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .actions { justify-content: flex-start; }
+  }
 </style>
 </head>
 <body>
-<div class="card">
-  <h1>Watt — Data Editor</h1>
-
-  <div>
-    <label for="secret">Update secret</label>
-    <div class="row">
-      <input type="password" id="secret" placeholder="Paste your UPDATE_SECRET…" />
-      <button class="btn-secondary" id="loadBtn">Load data</button>
-    </div>
+<div class="workspace">
+  <div class="topbar">
+    <h1>Watt Admin</h1>
+    <div class="count" id="countBadge">No data loaded</div>
   </div>
 
-  <hr class="divider" />
-
-  <div>
-    <label for="editor">data.json</label>
-    <textarea id="editor" spellcheck="false" placeholder="Click Load data to fetch the current data…"></textarea>
+  <div class="bar">
+    <div class="secret-field">
+      <label for="secret">Update secret</label>
+      <input type="password" id="secret" placeholder="UPDATE_SECRET" />
+    </div>
+    <button class="btn-secondary" id="loadBtn">Load</button>
+    <button class="btn-secondary" id="addBtn" disabled>Add person</button>
+    <button class="btn-primary" id="saveBtn" disabled>Save</button>
   </div>
 
   <div class="status" id="status"></div>
 
-  <div class="actions">
-    <button class="btn-secondary" id="formatBtn">Format JSON</button>
-    <div class="spacer"></div>
-    <button class="btn-primary" id="saveBtn" disabled>Save</button>
+  <div class="tabs" aria-label="Admin views">
+    <button class="tab active" type="button" data-tab="leaderboard">Leaderboard</button>
+    <button class="tab" type="button" data-tab="json">JSON</button>
+  </div>
+
+  <div class="view" id="leaderboardView">
+    <div class="leaderboard-head">
+      <div>Rank</div>
+      <div>Person</div>
+      <div>Tier</div>
+      <div>Score</div>
+      <div>Featured</div>
+      <div>Tokens</div>
+      <div>Accolades</div>
+      <div></div>
+    </div>
+    <div id="leaderboardList">
+      <div class="empty">Load data to edit leaderboard rows.</div>
+    </div>
+  </div>
+
+  <div class="view hidden" id="jsonView">
+    <textarea id="jsonEditor" spellcheck="false" placeholder="Load data to edit raw JSON."></textarea>
+    <div class="json-actions">
+      <button class="btn-secondary" id="syncJsonBtn" disabled>Sync from rows</button>
+      <button class="btn-secondary" id="applyJsonBtn" disabled>Apply JSON</button>
+      <button class="btn-secondary" id="formatBtn" disabled>Format</button>
+    </div>
   </div>
 </div>
 
 <script>
-const secretEl = document.getElementById('secret');
-const editorEl = document.getElementById('editor');
-const statusEl = document.getElementById('status');
-const loadBtn  = document.getElementById('loadBtn');
-const saveBtn  = document.getElementById('saveBtn');
-const formatBtn = document.getElementById('formatBtn');
+const ACCOLADES = ['compact', 'flow', 'spark', 'precision', 'frugal', 'surge', 'velocity'];
+const TIERS = ['bronze', 'silver', 'gold', 'platinum'];
 
-function showStatus(msg, type) {
-  statusEl.textContent = msg;
+let currentData = null;
+let activeTab = 'leaderboard';
+
+const secretEl = document.getElementById('secret');
+const statusEl = document.getElementById('status');
+const countBadge = document.getElementById('countBadge');
+const loadBtn = document.getElementById('loadBtn');
+const addBtn = document.getElementById('addBtn');
+const saveBtn = document.getElementById('saveBtn');
+const leaderboardList = document.getElementById('leaderboardList');
+const jsonEditor = document.getElementById('jsonEditor');
+const syncJsonBtn = document.getElementById('syncJsonBtn');
+const applyJsonBtn = document.getElementById('applyJsonBtn');
+const formatBtn = document.getElementById('formatBtn');
+const tabs = document.querySelectorAll('[data-tab]');
+const leaderboardView = document.getElementById('leaderboardView');
+const jsonView = document.getElementById('jsonView');
+
+function showStatus(message, type) {
+  statusEl.textContent = message;
   statusEl.className = `status ${type}`;
 }
 
@@ -147,80 +309,312 @@ function clearStatus() {
   statusEl.className = 'status';
 }
 
-function validateJSON() {
-  try {
-    JSON.parse(editorEl.value);
-    editorEl.classList.remove('error');
-    return true;
-  } catch {
-    editorEl.classList.add('error');
-    return false;
-  }
+function setLoadedState(loaded) {
+  addBtn.disabled = !loaded;
+  saveBtn.disabled = !loaded;
+  syncJsonBtn.disabled = !loaded;
+  applyJsonBtn.disabled = !loaded;
+  formatBtn.disabled = !loaded;
 }
 
-editorEl.addEventListener('input', () => {
+function clone(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+function nextFriendId() {
+  const used = new Set((currentData?.friends || []).map(friend => friend.id));
+  let index = (currentData?.friends || []).length + 1;
+  while (used.has(`f${index}`)) index += 1;
+  return `f${index}`;
+}
+
+function parseNumber(value, fallback = 0) {
+  const numeric = Number(value);
+  return Number.isFinite(numeric) ? numeric : fallback;
+}
+
+function sortedFriends() {
+  return [...(currentData?.friends || [])].sort((a, b) => {
+    const byEfficiency = (b.efficiency || 0) - (a.efficiency || 0);
+    return byEfficiency || String(a.name).localeCompare(String(b.name));
+  });
+}
+
+function syncJsonFromData() {
+  jsonEditor.value = currentData ? JSON.stringify(currentData, null, 2) : '';
+}
+
+function refreshBadge() {
+  if (!currentData) {
+    countBadge.textContent = 'No data loaded';
+    return;
+  }
+  const friendCount = currentData.friends?.length || 0;
+  countBadge.textContent = `${friendCount} editable rows`;
+}
+
+function render() {
+  refreshBadge();
+  if (!currentData) {
+    leaderboardList.innerHTML = '<div class="empty">Load data to edit leaderboard rows.</div>';
+    return;
+  }
+
+  const friends = sortedFriends();
+  if (friends.length === 0) {
+    leaderboardList.innerHTML = '<div class="empty">No friends are on the leaderboard yet.</div>';
+    return;
+  }
+
+  leaderboardList.innerHTML = friends.map((friend, index) => renderFriendRow(friend, index)).join('');
+}
+
+function renderFriendRow(friend, index) {
+  const accolades = new Set(friend.accolades || []);
+  return `
+    <div class="person-row" data-id="${friend.id}">
+      <div class="rank">${String(index + 1).padStart(2, '0')}</div>
+      <div class="identity-grid">
+        <div>
+          <label>Name</label>
+          <input data-field="name" value="${escapeAttr(friend.name || '')}" />
+        </div>
+        <div>
+          <label>Initials</label>
+          <input data-field="initials" value="${escapeAttr(friend.initials || '')}" />
+        </div>
+      </div>
+      <div>
+        <label>Tier</label>
+        <select data-field="tier">
+          ${TIERS.map(tier => `<option value="${tier}" ${friend.tier === tier ? 'selected' : ''}>${tier}</option>`).join('')}
+        </select>
+      </div>
+      <div>
+        <label>Efficiency</label>
+        <input data-field="efficiency" type="number" min="0" max="100" step="1" value="${escapeAttr(friend.efficiency ?? 0)}" />
+      </div>
+      <div class="featured-grid">
+        <div>
+          <label>Verb</label>
+          <input data-field="featured.verb" value="${escapeAttr(friend.featured?.verb || '')}" />
+        </div>
+        <div>
+          <label>Work</label>
+          <input data-field="featured.what" value="${escapeAttr(friend.featured?.what || '')}" />
+        </div>
+      </div>
+      <div>
+        <label>Tokens</label>
+        <input data-field="featured.tokens" type="number" min="0" step="1000" value="${escapeAttr(friend.featured?.tokens ?? friend.tokensToday ?? 0)}" />
+      </div>
+      <div>
+        <label>Accolades</label>
+        <div class="accolades">
+          ${ACCOLADES.map(kind => `
+            <label class="accolade">
+              <input data-accolade="${kind}" type="checkbox" ${accolades.has(kind) ? 'checked' : ''} />
+              ${kind}
+            </label>
+          `).join('')}
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn-danger" type="button" data-remove="${friend.id}">Remove</button>
+      </div>
+    </div>
+  `;
+}
+
+function escapeAttr(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('"', '&quot;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;');
+}
+
+function getFriend(id) {
+  return currentData?.friends?.find(friend => friend.id === id);
+}
+
+function updateFriend(row) {
+  const friend = getFriend(row.dataset.id);
+  if (!friend) return;
+
+  row.querySelectorAll('[data-field]').forEach(input => {
+    const field = input.dataset.field;
+    const value = input.type === 'number' ? parseNumber(input.value) : input.value.trim();
+
+    if (field.startsWith('featured.')) {
+      friend.featured ||= { verb: '', what: '', tokens: 0 };
+      friend.featured[field.split('.')[1]] = value;
+      return;
+    }
+
+    friend[field] = value;
+  });
+
+  friend.spt = parseNumber(friend.spt, 0);
+  friend.tokensToday = parseNumber(friend.tokensToday, friend.featured?.tokens || 0);
+  friend.accolades = [...row.querySelectorAll('[data-accolade]:checked')].map(input => input.dataset.accolade);
+}
+
+function collectRows() {
+  if (!currentData) return;
+  leaderboardList.querySelectorAll('.person-row').forEach(updateFriend);
+  syncJsonFromData();
+  refreshBadge();
+}
+
+function switchTab(tabName) {
+  activeTab = tabName;
+  tabs.forEach(tab => tab.classList.toggle('active', tab.dataset.tab === tabName));
+  leaderboardView.classList.toggle('hidden', tabName !== 'leaderboard');
+  jsonView.classList.toggle('hidden', tabName !== 'json');
+  if (tabName === 'json' && currentData) collectRows();
+}
+
+leaderboardList.addEventListener('input', event => {
+  if (!event.target.closest('.person-row')) return;
   clearStatus();
-  const ok = validateJSON();
-  saveBtn.disabled = !ok || !editorEl.value.trim();
+  collectRows();
 });
 
-formatBtn.addEventListener('click', () => {
-  try {
-    const parsed = JSON.parse(editorEl.value);
-    editorEl.value = JSON.stringify(parsed, null, 2);
-    editorEl.classList.remove('error');
-    clearStatus();
-  } catch {
-    showStatus('Invalid JSON — fix errors before formatting.', 'err');
-  }
+leaderboardList.addEventListener('change', event => {
+  if (!event.target.closest('.person-row')) return;
+  clearStatus();
+  collectRows();
+});
+
+leaderboardList.addEventListener('click', event => {
+  const removeId = event.target.dataset.remove;
+  if (!removeId || !currentData) return;
+  currentData.friends = currentData.friends.filter(friend => friend.id !== removeId);
+  clearStatus();
+  render();
+  syncJsonFromData();
+});
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => switchTab(tab.dataset.tab));
 });
 
 loadBtn.addEventListener('click', async () => {
   clearStatus();
   loadBtn.disabled = true;
-  loadBtn.textContent = 'Loading…';
+  loadBtn.textContent = 'Loading';
+
   try {
-    const res = await fetch('/api/data');
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const json = await res.json();
-    editorEl.value = JSON.stringify(json, null, 2);
-    editorEl.classList.remove('error');
-    saveBtn.disabled = false;
+    const response = await fetch('/api/data', { cache: 'no-store' });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    currentData = await response.json();
+    currentData.friends ||= [];
+    render();
+    syncJsonFromData();
+    setLoadedState(true);
     showStatus('Data loaded.', 'ok');
-  } catch (e) {
-    showStatus(`Failed to load: ${e.message}`, 'err');
+  } catch (error) {
+    showStatus(`Failed to load: ${error.message}`, 'err');
   } finally {
     loadBtn.disabled = false;
-    loadBtn.textContent = 'Load data';
+    loadBtn.textContent = 'Load';
+  }
+});
+
+addBtn.addEventListener('click', () => {
+  if (!currentData) return;
+  currentData.friends ||= [];
+  currentData.friends.push({
+    id: nextFriendId(),
+    name: 'New person',
+    initials: 'NP',
+    tier: 'silver',
+    spt: 50,
+    tokensToday: 0,
+    accolades: [],
+    efficiency: 75,
+    streakDays: 0,
+    featured: { verb: 'Built', what: 'a new project', tokens: 0 },
+    projects: [],
+  });
+  clearStatus();
+  render();
+  syncJsonFromData();
+});
+
+syncJsonBtn.addEventListener('click', () => {
+  collectRows();
+  showStatus('JSON synced from leaderboard rows.', 'ok');
+});
+
+applyJsonBtn.addEventListener('click', () => {
+  try {
+    currentData = JSON.parse(jsonEditor.value);
+    currentData.friends ||= [];
+    render();
+    syncJsonFromData();
+    showStatus('JSON applied.', 'ok');
+  } catch {
+    showStatus('Invalid JSON.', 'err');
+  }
+});
+
+formatBtn.addEventListener('click', () => {
+  try {
+    jsonEditor.value = JSON.stringify(JSON.parse(jsonEditor.value), null, 2);
+    showStatus('JSON formatted.', 'ok');
+  } catch {
+    showStatus('Invalid JSON.', 'err');
   }
 });
 
 saveBtn.addEventListener('click', async () => {
-  if (!validateJSON()) return showStatus('Fix JSON errors before saving.', 'err');
+  if (!currentData) return;
   const secret = secretEl.value.trim();
-  if (!secret) return showStatus('Enter your update secret first.', 'err');
+  if (!secret) {
+    showStatus('Enter the update secret first.', 'err');
+    return;
+  }
+
+  if (activeTab === 'json') {
+    try {
+      currentData = JSON.parse(jsonEditor.value);
+      currentData.friends ||= [];
+    } catch {
+      showStatus('Invalid JSON.', 'err');
+      return;
+    }
+  } else {
+    collectRows();
+  }
 
   saveBtn.disabled = true;
-  saveBtn.textContent = 'Saving…';
+  saveBtn.textContent = 'Saving';
+
   try {
-    const res = await fetch('/api/update', {
+    const response = await fetch('/api/update', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${secret}`,
         'Content-Type': 'application/json',
       },
-      body: editorEl.value,
+      body: JSON.stringify(currentData),
     });
-    const json = await res.json();
-    if (!res.ok) throw new Error(json.error ?? res.status);
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || response.status);
+    render();
+    syncJsonFromData();
     showStatus('Saved. Changes are live within a few seconds.', 'ok');
-  } catch (e) {
-    showStatus(`Save failed: ${e.message}`, 'err');
+  } catch (error) {
+    showStatus(`Save failed: ${error.message}`, 'err');
   } finally {
     saveBtn.disabled = false;
     saveBtn.textContent = 'Save';
   }
 });
+
+setLoadedState(false);
 </script>
 </body>
 </html>
