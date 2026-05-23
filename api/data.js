@@ -4,14 +4,6 @@ import { join } from 'path';
 
 const BLOB_PREFIX = 'leaderboard-data-';
 
-function blobOptions() {
-  const token = process.env.BLOB_READ_WRITE_TOKEN;
-  if (!token) {
-    throw new Error('Missing BLOB_READ_WRITE_TOKEN. Create/connect a Vercel Blob store for this project and redeploy.');
-  }
-  return { token };
-}
-
 function readSeedData() {
   const raw = readFileSync(join(process.cwd(), 'data.json'), 'utf8');
   return { raw, json: JSON.parse(raw) };
@@ -22,10 +14,8 @@ export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
 
   let blobs = [];
-  let options;
   try {
-    options = blobOptions();
-    const result = await list({ ...options, prefix: BLOB_PREFIX });
+    const result = await list({ prefix: BLOB_PREFIX });
     blobs = result.blobs;
   } catch (error) {
     console.warn('Unable to list leaderboard blobs; using seed data.', error);
@@ -36,7 +26,6 @@ export default async function handler(req, res) {
     const seed = readSeedData();
     try {
       await put(`${BLOB_PREFIX}${Date.now()}.json`, seed.raw, {
-        ...options,
         access: 'public',
         contentType: 'application/json',
       });
