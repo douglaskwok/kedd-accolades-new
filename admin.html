@@ -280,6 +280,7 @@
 <script>
 const ACCOLADES = ['compact', 'flow', 'spark', 'precision', 'frugal', 'surge', 'velocity'];
 const TIERS = ['bronze', 'silver', 'gold', 'platinum'];
+const LOCAL_DATA_KEY = 'watt:data:v1';
 
 let currentData = null;
 let activeTab = 'leaderboard';
@@ -388,6 +389,20 @@ function leaderboardRows() {
 
 function syncJsonFromData() {
   jsonEditor.value = currentData ? JSON.stringify(currentData, null, 2) : '';
+}
+
+function readLocalData() {
+  try {
+    const raw = window.localStorage.getItem(LOCAL_DATA_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    window.localStorage.removeItem(LOCAL_DATA_KEY);
+    return null;
+  }
+}
+
+function writeLocalData(data) {
+  window.localStorage.setItem(LOCAL_DATA_KEY, JSON.stringify(data));
 }
 
 function refreshBadge() {
@@ -600,14 +615,19 @@ loadBtn.addEventListener('click', async () => {
   loadBtn.textContent = 'Loading';
 
   try {
-    const response = await fetch('/api/data', { cache: 'no-store' });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    currentData = await response.json();
+    const localData = readLocalData();
+    if (localData) {
+      currentData = localData;
+    } else {
+      const response = await fetch('/api/data', { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      currentData = await response.json();
+    }
     currentData.friends ||= [];
     render();
     syncJsonFromData();
     setLoadedState(true);
-    showStatus('Data loaded.', 'ok');
+    showStatus(localData ? 'Local prototype data loaded.' : 'Data loaded.', 'ok');
   } catch (error) {
     showStatus(`Failed to load: ${error.message}`, 'err');
   } finally {
@@ -680,6 +700,7 @@ saveBtn.addEventListener('click', async () => {
 
   saveBtn.disabled = true;
   saveBtn.textContent = 'Saving';
+  writeLocalData(currentData);
 
   try {
     const response = await fetch('/api/update', {
@@ -695,7 +716,9 @@ saveBtn.addEventListener('click', async () => {
     syncJsonFromData();
     showStatus('Saved. Changes are live within a few seconds.', 'ok');
   } catch (error) {
-    showStatus(`Save failed: ${error.message}`, 'err');
+    render();
+    syncJsonFromData();
+    showStatus(`Saved locally for this prototype. Vercel save failed: ${error.message}`, 'ok');
   } finally {
     saveBtn.disabled = false;
     saveBtn.textContent = 'Save';
