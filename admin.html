@@ -89,7 +89,7 @@
   }
   .bar {
     display: grid;
-    grid-template-columns: minmax(220px, 1fr) auto auto auto;
+    grid-template-columns: 1fr auto auto auto;
     align-items: end;
     gap: 10px;
     border-radius: 8px;
@@ -135,6 +135,9 @@
   .person-row {
     padding: 12px 14px;
     border-bottom: 1px solid var(--line-soft);
+  }
+  .person-row.is-you {
+    background: color-mix(in oklch, var(--accent) 7%, transparent);
   }
   .person-row:last-child { border-bottom: 0; }
   .rank {
@@ -215,7 +218,6 @@
     .workspace { width: 100%; padding: 18px 12px 32px; }
     .topbar { align-items: flex-start; }
     .bar { grid-template-columns: 1fr 1fr; }
-    .secret-field { grid-column: 1 / -1; }
     .leaderboard-head { display: none; }
     .person-row {
       grid-template-columns: 38px 1fr;
@@ -236,10 +238,7 @@
   </div>
 
   <div class="bar">
-    <div class="secret-field">
-      <label for="secret">Update secret</label>
-      <input type="password" id="secret" placeholder="UPDATE_SECRET" />
-    </div>
+    <div class="count">Prototype editor</div>
     <button class="btn-secondary" id="loadBtn">Load</button>
     <button class="btn-secondary" id="addBtn" disabled>Add person</button>
     <button class="btn-primary" id="saveBtn" disabled>Save</button>
@@ -285,7 +284,6 @@ const TIERS = ['bronze', 'silver', 'gold', 'platinum'];
 let currentData = null;
 let activeTab = 'leaderboard';
 
-const secretEl = document.getElementById('secret');
 const statusEl = document.getElementById('status');
 const countBadge = document.getElementById('countBadge');
 const loadBtn = document.getElementById('loadBtn');
@@ -340,6 +338,53 @@ function sortedFriends() {
   });
 }
 
+function firstProject() {
+  currentData.projects ||= [];
+  if (!currentData.projects[0]) {
+    currentData.projects[0] = {
+      id: 'p1',
+      title: 'New project',
+      sub: 'Prototype',
+      spt: 0,
+      sptDelta: 0,
+      total: 0,
+      hourly: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      accolades: [],
+      accent: 'oklch(0.86 0.17 128)',
+    };
+  }
+  return currentData.projects[0];
+}
+
+function youRow() {
+  if (!currentData?.user) return null;
+  const project = firstProject();
+  return {
+    id: 'you',
+    type: 'you',
+    name: currentData.user.name || '',
+    initials: currentData.user.initials || '',
+    tier: currentData.user.tier || 'silver',
+    efficiency: currentData.user.efficiencyToday ?? 0,
+    featured: {
+      verb: 'Working on',
+      what: project.title || '',
+      tokens: project.total ?? currentData.user.totalTokensToday ?? 0,
+    },
+    accolades: project.accolades || [],
+  };
+}
+
+function leaderboardRows() {
+  const rows = sortedFriends().map(friend => ({ ...friend, type: 'friend' }));
+  const self = youRow();
+  if (self) rows.push(self);
+  return rows.sort((a, b) => {
+    const byEfficiency = (b.efficiency || 0) - (a.efficiency || 0);
+    return byEfficiency || String(a.name).localeCompare(String(b.name));
+  });
+}
+
 function syncJsonFromData() {
   jsonEditor.value = currentData ? JSON.stringify(currentData, null, 2) : '';
 }
@@ -350,7 +395,7 @@ function refreshBadge() {
     return;
   }
   const friendCount = currentData.friends?.length || 0;
-  countBadge.textContent = `${friendCount} editable rows`;
+  countBadge.textContent = `${friendCount + (currentData.user ? 1 : 0)} editable rows`;
 }
 
 function render() {
@@ -360,53 +405,54 @@ function render() {
     return;
   }
 
-  const friends = sortedFriends();
-  if (friends.length === 0) {
-    leaderboardList.innerHTML = '<div class="empty">No friends are on the leaderboard yet.</div>';
+  const rows = leaderboardRows();
+  if (rows.length === 0) {
+    leaderboardList.innerHTML = '<div class="empty">No rows are on the leaderboard yet.</div>';
     return;
   }
 
-  leaderboardList.innerHTML = friends.map((friend, index) => renderFriendRow(friend, index)).join('');
+  leaderboardList.innerHTML = rows.map((row, index) => renderLeaderboardRow(row, index)).join('');
 }
 
-function renderFriendRow(friend, index) {
-  const accolades = new Set(friend.accolades || []);
+function renderLeaderboardRow(row, index) {
+  const accolades = new Set(row.accolades || []);
+  const isYou = row.type === 'you';
   return `
-    <div class="person-row" data-id="${friend.id}">
+    <div class="person-row ${isYou ? 'is-you' : ''}" data-id="${row.id}" data-type="${row.type}">
       <div class="rank">${String(index + 1).padStart(2, '0')}</div>
       <div class="identity-grid">
         <div>
-          <label>Name</label>
-          <input data-field="name" value="${escapeAttr(friend.name || '')}" />
+          <label>${isYou ? 'Name (you)' : 'Name'}</label>
+          <input data-field="name" value="${escapeAttr(row.name || '')}" />
         </div>
         <div>
           <label>Initials</label>
-          <input data-field="initials" value="${escapeAttr(friend.initials || '')}" />
+          <input data-field="initials" value="${escapeAttr(row.initials || '')}" />
         </div>
       </div>
       <div>
         <label>Tier</label>
         <select data-field="tier">
-          ${TIERS.map(tier => `<option value="${tier}" ${friend.tier === tier ? 'selected' : ''}>${tier}</option>`).join('')}
+          ${TIERS.map(tier => `<option value="${tier}" ${row.tier === tier ? 'selected' : ''}>${tier}</option>`).join('')}
         </select>
       </div>
       <div>
         <label>Efficiency</label>
-        <input data-field="efficiency" type="number" min="0" max="100" step="1" value="${escapeAttr(friend.efficiency ?? 0)}" />
+        <input data-field="efficiency" type="number" min="0" max="100" step="1" value="${escapeAttr(row.efficiency ?? 0)}" />
       </div>
       <div class="featured-grid">
         <div>
           <label>Verb</label>
-          <input data-field="featured.verb" value="${escapeAttr(friend.featured?.verb || '')}" />
+          <input data-field="featured.verb" value="${escapeAttr(row.featured?.verb || '')}" ${isYou ? 'disabled' : ''} />
         </div>
         <div>
           <label>Work</label>
-          <input data-field="featured.what" value="${escapeAttr(friend.featured?.what || '')}" />
+          <input data-field="featured.what" value="${escapeAttr(row.featured?.what || '')}" />
         </div>
       </div>
       <div>
         <label>Tokens</label>
-        <input data-field="featured.tokens" type="number" min="0" step="1000" value="${escapeAttr(friend.featured?.tokens ?? friend.tokensToday ?? 0)}" />
+        <input data-field="featured.tokens" type="number" min="0" step="1000" value="${escapeAttr(row.featured?.tokens ?? row.tokensToday ?? 0)}" />
       </div>
       <div>
         <label>Accolades</label>
@@ -420,7 +466,7 @@ function renderFriendRow(friend, index) {
         </div>
       </div>
       <div class="actions">
-        <button class="btn-danger" type="button" data-remove="${friend.id}">Remove</button>
+        ${isYou ? '<span class="count">You</span>' : `<button class="btn-danger" type="button" data-remove="${row.id}">Remove</button>`}
       </div>
     </div>
   `;
@@ -436,6 +482,39 @@ function escapeAttr(value) {
 
 function getFriend(id) {
   return currentData?.friends?.find(friend => friend.id === id);
+}
+
+function updateLeaderboardRow(row) {
+  if (row.dataset.type === 'you') {
+    updateYou(row);
+    return;
+  }
+  updateFriend(row);
+}
+
+function updateYou(row) {
+  currentData.user ||= {};
+  const project = firstProject();
+
+  row.querySelectorAll('[data-field]').forEach(input => {
+    const field = input.dataset.field;
+    const value = input.type === 'number' ? parseNumber(input.value) : input.value.trim();
+
+    if (field === 'name') currentData.user.name = value;
+    if (field === 'initials') currentData.user.initials = value;
+    if (field === 'tier') currentData.user.tier = value;
+    if (field === 'efficiency') {
+      currentData.user.efficiencyToday = value;
+      currentData.user.efficiencyLifetime = value;
+    }
+    if (field === 'featured.what') project.title = value;
+    if (field === 'featured.tokens') {
+      project.total = value;
+      currentData.user.totalTokensToday = value;
+    }
+  });
+
+  project.accolades = [...row.querySelectorAll('[data-accolade]:checked')].map(input => input.dataset.accolade);
 }
 
 function updateFriend(row) {
@@ -462,7 +541,7 @@ function updateFriend(row) {
 
 function collectRows() {
   if (!currentData) return;
-  leaderboardList.querySelectorAll('.person-row').forEach(updateFriend);
+  leaderboardList.querySelectorAll('.person-row').forEach(updateLeaderboardRow);
   syncJsonFromData();
   refreshBadge();
 }
@@ -571,11 +650,6 @@ formatBtn.addEventListener('click', () => {
 
 saveBtn.addEventListener('click', async () => {
   if (!currentData) return;
-  const secret = secretEl.value.trim();
-  if (!secret) {
-    showStatus('Enter the update secret first.', 'err');
-    return;
-  }
 
   if (activeTab === 'json') {
     try {
@@ -596,7 +670,6 @@ saveBtn.addEventListener('click', async () => {
     const response = await fetch('/api/update', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${secret}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(currentData),

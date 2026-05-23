@@ -5,7 +5,7 @@ const BLOB_PREFIX = 'leaderboard-data-';
 function setCorsHeaders(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, PATCH, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }
 
 async function fetchExistingData(req) {
@@ -27,11 +27,6 @@ export default async function handler(req, res) {
 
   if (req.method !== 'POST' && req.method !== 'PATCH') {
     return res.status(405).json({ error: 'Method not allowed' });
-  }
-
-  const secret = process.env.UPDATE_SECRET;
-  if (!secret || req.headers.authorization !== `Bearer ${secret}`) {
-    return res.status(401).json({ error: 'Unauthorized' });
   }
 
   let data = req.body;
